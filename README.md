@@ -31,16 +31,14 @@ If you are new to neural networks, this ["Dummy's Guide"](https://x.com/hooeem/s
 python3 -m pip install modal
 modal setup
 
-# 2. Put Modal credentials in `.env` if you prefer that over global auth
+# 2. Put Modal credentials in `.env` 
 
-# 3. Start a cold run
-python3 modal_control.py start
+# 3. Start your ai agent with ability to run without getting blocked. by permissions
+claude --dangerously-skip-permissions
 
-# 4. Warm runs can skip prepare and reuse the Modal volume cache
-python3 modal_control.py start --skip-prepare
+# 4. Tell your AI to start working:
+> "Hi have a look at program.md and let's kick off a new experiment! let's do the setup first."
 ```
-
-If the above commands work, your local setup is good enough to hand the repo to an agent and let it drive the loop through `program.md`.
 
 ## Modal-backed local control
 
@@ -70,15 +68,6 @@ Modal runs.
 
 The agent should use `modal_control.py`, not `modal_train.py`, as the main execution surface.
 
-## Running the agent
-
-Simply spin up your Claude/Codex or whatever you want in this repo (and disable all permissions), then you can prompt something like:
-
-```
-Hi have a look at program.md and let's kick off a new experiment! let's do the setup first.
-```
-
-The `program.md` file is essentially a super lightweight "skill".
 
 ## Project structure
 
