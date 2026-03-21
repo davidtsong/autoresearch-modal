@@ -12,9 +12,11 @@ To set up a new experiment, work with the user to:
    - `README.md` — repository context.
    - `prepare.py` — fixed constants, data prep, tokenizer, dataloader, evaluation. Do not modify.
    - `train.py` — the file you modify. Model architecture, optimizer, training loop.
+   - `render_progress.py` — refreshes `progress.png` from `results.tsv`. Do not modify.
 4. **Verify data exists**: Check that `~/.cache/autoresearch/` contains data shards and a tokenizer. If not, tell the human to run `uv run prepare.py`.
 5. **Initialize results.tsv**: Create `results.tsv` with just the header row. The baseline will be recorded after the first run.
-6. **Confirm and go**: Confirm setup looks good.
+6. **Render the initial chart**: Run `uv run python render_progress.py` once results.tsv has at least one row.
+7. **Confirm and go**: Confirm setup looks good.
 
 Once you get confirmation, kick off the experimentation.
 
@@ -71,6 +73,8 @@ grep "^val_bpb:" run.log
 
 When an experiment is done, log it to `results.tsv` (tab-separated, NOT comma-separated — commas break in descriptions).
 
+After every change to `results.tsv`, immediately run `uv run python render_progress.py` so `progress.png` stays current.
+
 The TSV has a header row and 5 columns:
 
 ```
@@ -115,8 +119,9 @@ LOOP FOREVER:
    - Record `val_bpb` and `peak_vram_mb` from the parsed JSON
 7. If the run crashes, inspect the tail of the managed log with `python3 modal_control.py logs <run_id> --tail 120` and attempt a fix. If you can't get things to work after more than a few attempts, give up.
 8. Record the results in the tsv (NOTE: do not commit the results.tsv file, leave it untracked by git)
-9. If val_bpb improved (lower), you "advance" the branch, keeping the git commit
-10. If val_bpb is equal or worse, you git reset back to where you started
+9. Regenerate the progress chart: `uv run python render_progress.py`
+10. If val_bpb improved (lower), you "advance" the branch, keeping the git commit
+11. If val_bpb is equal or worse, you git reset back to where you started
 
 The idea is that you are a completely autonomous researcher trying things out. If they work, keep. If they don't, discard. And you're advancing the branch so that you can iterate. If you feel like you're getting stuck in some way, you can rewind but you should probably do this very very sparingly (if ever).
 
