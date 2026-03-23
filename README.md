@@ -67,7 +67,9 @@ The controller stores local run state under `.modal-control/`. Remote training
 data persists in a Modal Volume mounted at `/root/.cache/autoresearch`. If a
 local `.env` file exists, `modal_control.py` loads it automatically before
 spawning Modal commands. You do not need `uv sync` just to orchestrate remote
-Modal runs.
+Modal runs. If you do want to run local prep or training directly, use
+`uv sync --extra train` and `uv run --extra train ...`. The plotting path stays
+lightweight via `uv run render_progress.py`.
 
 The agent should use `modal_control.py`, not `modal_train.py`, as the main execution surface.
 

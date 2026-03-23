@@ -13,12 +13,16 @@ dependencies = [
     "requests>=2.32.0",
     "rustbpe>=0.1.0",
     "tiktoken>=0.11.0",
+]
+
+[project.optional-dependencies]
+train = [
     "torch==2.9.1",
 ]
 
 [tool.uv.sources]
 torch = [
-    { index = "pytorch-cu128" },
+    { index = "pytorch-cu128", extra = "train" },
 ]
 
 [[tool.uv.index]]

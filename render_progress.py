@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#     "matplotlib>=3.10.8",
+#     "pandas>=2.3.3",
+# ]
+# ///
 """Render progress.png from results.tsv."""
 
 from __future__ import annotations
